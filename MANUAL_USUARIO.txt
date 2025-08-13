@@ -1,0 +1,355 @@
+===============================================================================
+                        MANUAL DE USUARIO BÁSICO
+                              AKADEMIA 360
+===============================================================================
+
+Este manual está diseñado para usuarios que necesitan utilizar el sistema
+Akademia 360 de manera básica y efectiva.
+
+===============================================================================
+                                ÍNDICE
+===============================================================================
+
+1. ACCESO AL SISTEMA
+2. NAVEGACIÓN BÁSICA
+3. FUNCIONES PRINCIPALES
+4. GESTIÓN DE CONTENIDO
+5. CONFIGURACIÓN DEL CARRUSEL
+6. GESTIÓN DE CONTACTOS
+7. CONSEJOS ÚTILES
+8. SOLUCIÓN DE PROBLEMAS BÁSICOS
+
+===============================================================================
+                          1. ACCESO AL SISTEMA
+===============================================================================
+
+ACCESO AL SITIO WEB:
+1. Abrir el navegador web (Chrome, Firefox, Safari, Edge)
+2. Ir a la dirección: http://localhost/aka360/
+3. Verificar que la página principal se cargue correctamente
+
+ACCESO AL PANEL DE ADMINISTRACIÓN:
+1. Abrir el navegador web
+2. Ir a: http://localhost/aka360/admin/
+3. El panel se carga automáticamente sin necesidad de login
+
+NOTA: El sistema no requiere autenticación para el panel de administración.
+Esto significa que cualquier persona con acceso al servidor puede modificar
+el contenido. En un entorno de producción, se recomienda implementar
+un sistema de autenticación.
+
+===============================================================================
+                         2. NAVEGACIÓN BÁSICA
+===============================================================================
+
+PANEL DE ADMINISTRACIÓN:
+
+El panel de administración tiene una barra lateral con las siguientes opciones:
+
+┌─────────────────────────────────────┐
+│           AKADEMIA 360             │
+│      Panel de Administración       │
+├─────────────────────────────────────┤
+│ 📊 Dashboard                       │
+│ 📚 Cursos                          │
+│ 📰 Noticias                        │
+│ 👥 Relatores                       │
+│ 🛠️  Servicios                      │
+│ 🎠 Carrusel                        │
+│ 📧 Contactos                       │
+└─────────────────────────────────────┘
+
+NAVEGACIÓN EN EL SITIO WEB:
+
+El sitio web público tiene las siguientes secciones principales:
+
+- INICIO: Página principal con carrusel y resumen
+- NOSOTROS: Información sobre Akademia 360
+- CURSOS: Calendario y lista de cursos disponibles
+- RELATORES: Información sobre los relatores
+- NOTICIAS: Artículos y novedades
+- CONTACTO: Formulario de contacto
+
+===============================================================================
+                       3. FUNCIONES PRINCIPALES
+===============================================================================
+
+DASHBOARD:
+- Vista general del sistema
+- Estadísticas básicas de contenido
+- Acceso rápido a funciones principales
+
+GESTIÓN DE CURSOS:
+- Agregar nuevos cursos
+- Editar información de cursos existentes
+- Configurar fechas y precios
+- Marcar cursos como cotizables
+- Gestionar imágenes de cursos
+
+GESTIÓN DE NOTICIAS:
+- Crear nuevas noticias
+- Editar noticias existentes
+- Agregar imágenes a las noticias
+- Gestionar contenido del carrusel
+
+GESTIÓN DE RELATORES:
+- Agregar información de relatores
+- Editar perfiles y biografías
+- Gestionar imágenes de relatores
+- Configurar especializaciones
+
+GESTIÓN DE SERVICIOS:
+- Configurar servicios disponibles
+- Editar descripciones
+- Agregar imágenes a servicios
+
+===============================================================================
+                      4. GESTIÓN DE CONTENIDO
+===============================================================================
+
+AGREGAR UN NUEVO CURSO:
+
+1. Ir a "Cursos" en el panel de administración
+2. Hacer clic en "Agregar Nuevo Curso"
+3. Completar los campos:
+   - Título del curso
+   - Descripción corta
+   - Descripción completa
+   - Objetivos
+   - Programa detallado
+   - Código del curso
+   - Precio (o marcar como cotizable)
+   - Categoría
+   - Relator asignado
+   - Imagen del curso
+4. Configurar opciones del carrusel (opcional)
+5. Hacer clic en "Guardar"
+
+EDITAR UN CURSO EXISTENTE:
+
+1. Ir a "Cursos" en el panel de administración
+2. Buscar el curso en la lista
+3. Hacer clic en "Editar"
+4. Modificar los campos necesarios
+5. Hacer clic en "Actualizar"
+
+AGREGAR UNA NUEVA NOTICIA:
+
+1. Ir a "Noticias" en el panel de administración
+2. Hacer clic en "Agregar Nueva Noticia"
+3. Completar los campos:
+   - Título de la noticia
+   - Resumen
+   - Contenido completo
+   - Imagen (opcional)
+   - Autor
+4. Configurar opciones del carrusel (opcional)
+5. Hacer clic en "Guardar"
+
+AGREGAR UN NUEVO RELATOR:
+
+1. Ir a "Relatores" en el panel de administración
+2. Hacer clic en "Agregar Nuevo Relator"
+3. Completar los campos:
+   - Nombre completo
+   - Título profesional
+   - Biografía
+   - Especialización
+   - Universidad
+   - Email
+   - Imagen del relator
+4. Hacer clic en "Guardar"
+
+===============================================================================
+                    5. CONFIGURACIÓN DEL CARRUSEL
+===============================================================================
+
+El carrusel es la sección principal que se muestra en la página de inicio.
+Permite destacar contenido específico por períodos de tiempo.
+
+CONFIGURAR CONTENIDO DEL CARRUSEL:
+
+1. Ir a "Carrusel" en el panel de administración
+2. Hacer clic en "Agregar Nuevo Elemento"
+3. Seleccionar el tipo de contenido:
+   - Curso
+   - Noticia
+   - Servicio
+   - Relator
+4. Completar la información:
+   - Título para el carrusel
+   - Descripción
+   - Imagen
+   - Fecha de inicio
+   - Fecha de fin
+5. Hacer clic en "Guardar"
+
+CONFIGURACIÓN INTEGRADA:
+
+También puedes configurar el carrusel directamente desde:
+- La edición de cursos (sección "Opciones del Carrusel")
+- La edición de noticias (sección "Opciones del Carrusel")
+
+Esto permite configurar automáticamente el carrusel al crear o editar contenido.
+
+CONSEJOS PARA EL CARRUSEL:
+
+- Usar imágenes de alta calidad (recomendado 1200x600 píxeles)
+- Mantener títulos cortos y descriptivos
+- Programar contenido con fechas específicas
+- No tener más de 5 elementos activos simultáneamente
+- Verificar que las imágenes se carguen correctamente
+
+===============================================================================
+                      6. GESTIÓN DE CONTACTOS
+===============================================================================
+
+VER MENSAJES DE CONTACTO:
+
+1. Ir a "Contactos" en el panel de administración
+2. Ver la lista de mensajes recibidos
+3. Cada mensaje muestra:
+   - Nombre del remitente
+   - Email
+   - Asunto
+   - Mensaje
+   - Fecha de envío
+   - Curso relacionado (si aplica)
+
+GESTIONAR CONTACTOS:
+
+- Los mensajes se almacenan automáticamente
+- No se pueden editar desde el panel
+- Se pueden eliminar si es necesario
+- Se recomienda responder directamente por email
+
+CONFIGURACIÓN DEL FORMULARIO:
+
+El formulario de contacto está disponible en:
+- Página principal: http://localhost/aka360/pages/contacto.php
+- Desde cualquier página de curso
+
+===============================================================================
+                          7. CONSEJOS ÚTILES
+===============================================================================
+
+GESTIÓN DE IMÁGENES:
+
+1. FORMATOS RECOMENDADOS:
+   - JPG para fotografías
+   - PNG para imágenes con transparencia
+   - Tamaño máximo: 2MB por imagen
+
+2. DIMENSIONES SUGERIDAS:
+   - Carrusel: 1200x600 píxeles
+   - Cursos: 800x600 píxeles
+   - Relatores: 400x400 píxeles (cuadradas)
+   - Noticias: 800x400 píxeles
+
+3. UBICACIÓN DE IMÁGENES:
+   - Todas las imágenes se almacenan en la carpeta img/
+   - Usar nombres descriptivos para las imágenes
+   - Evitar espacios en nombres de archivos
+
+GESTIÓN DE CONTENIDO:
+
+1. ORGANIZACIÓN:
+   - Mantener títulos claros y descriptivos
+   - Usar categorías para organizar cursos
+   - Mantener descripciones actualizadas
+
+2. FECHAS Y PROGRAMACIÓN:
+   - Configurar fechas realistas para cursos
+   - Programar contenido del carrusel con anticipación
+   - Revisar fechas de vencimiento regularmente
+
+3. CALIDAD DEL CONTENIDO:
+   - Revisar ortografía y gramática
+   - Verificar que los enlaces funcionen
+   - Probar el sitio en diferentes navegadores
+
+MANTENIMIENTO REGULAR:
+
+1. SEMANAL:
+   - Revisar mensajes de contacto
+   - Verificar que el carrusel funcione
+   - Actualizar contenido si es necesario
+
+2. MENSUAL:
+   - Revisar y actualizar información de relatores
+   - Verificar que los enlaces funcionen
+   - Limpiar contenido obsoleto
+
+===============================================================================
+                  8. SOLUCIÓN DE PROBLEMAS BÁSICOS
+===============================================================================
+
+PROBLEMA: "No se puede acceder al sitio"
+SOLUCIÓN:
+- Verificar que el servidor web esté ejecutándose
+- Comprobar la URL correcta
+- Revisar que los archivos estén en la carpeta correcta
+
+PROBLEMA: "Las imágenes no se muestran"
+SOLUCIÓN:
+- Verificar que las imágenes estén en la carpeta img/
+- Comprobar que las rutas sean correctas
+- Verificar el formato de las imágenes
+
+PROBLEMA: "El carrusel no funciona"
+SOLUCIÓN:
+- Verificar que haya contenido configurado
+- Revisar las fechas de inicio y fin
+- Comprobar que las imágenes existan
+
+PROBLEMA: "No se pueden guardar cambios"
+SOLUCIÓN:
+- Verificar que la base de datos esté funcionando
+- Comprobar permisos de escritura
+- Revisar que todos los campos requeridos estén completos
+
+PROBLEMA: "El formulario de contacto no funciona"
+SOLUCIÓN:
+- Verificar que todos los campos estén completos
+- Comprobar que el email sea válido
+- Revisar que la base de datos esté funcionando
+
+COMANDOS ÚTILES:
+
+1. VERIFICAR SERVICIOS:
+   - Laragon: Verificar que Apache y MySQL estén activos
+   - XAMPP: Revisar panel de control
+   - WAMP: Verificar icono en bandeja del sistema
+
+2. ACCESO RÁPIDO:
+   - Sitio web: http://localhost/aka360/
+   - Panel admin: http://localhost/aka360/admin/
+   - phpMyAdmin: http://localhost/phpmyadmin
+
+3. CARPETAS IMPORTANTES:
+   - Imágenes: aka360/img/
+   - Configuración: aka360/config/
+   - Panel admin: aka360/admin/
+
+CONTACTO PARA AYUDA:
+
+Si necesitas ayuda adicional:
+- Revisar este manual completo
+- Consultar el manual de administrador
+- Contactar al soporte técnico
+
+===============================================================================
+                                FINAL
+===============================================================================
+
+Este manual está diseñado para usuarios básicos del sistema Akademia 360.
+Para funciones avanzadas, consultar el manual de administrador.
+
+Recuerda:
+- Hacer respaldos regulares del contenido
+- Mantener el sistema actualizado
+- Probar cambios antes de publicarlos
+- Documentar modificaciones importantes
+
+Fecha de última actualización: [FECHA]
+Versión del sistema: 1.0 

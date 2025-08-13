@@ -1,0 +1,316 @@
+===============================================================================
+                    MANUAL DE INSTALACIÓN Y CONFIGURACIÓN
+                           AKADEMIA 360
+===============================================================================
+
+Este manual está diseñado para administradores que necesitan instalar y configurar
+el sistema Akademia 360 desde cero.
+
+===============================================================================
+                                ÍNDICE
+===============================================================================
+
+1. REQUISITOS DEL SISTEMA
+2. INSTALACIÓN DEL SERVIDOR WEB
+3. CONFIGURACIÓN DE LA BASE DE DATOS
+4. INSTALACIÓN DEL SISTEMA
+5. CONFIGURACIÓN INICIAL
+6. ADMINISTRACIÓN DEL SISTEMA
+7. MANTENIMIENTO
+8. SOLUCIÓN DE PROBLEMAS
+
+===============================================================================
+                        1. REQUISITOS DEL SISTEMA
+===============================================================================
+
+SERVIDOR WEB:
+- Apache 2.4+ o Nginx
+- PHP 7.4+ (recomendado PHP 8.0+)
+- Extensión mysqli habilitada
+- Extensión GD para procesamiento de imágenes
+- Extensión mbstring para codificación de caracteres
+
+BASE DE DATOS:
+- MySQL 5.7+ o MariaDB 10.2+
+- Acceso con privilegios de administrador
+
+SISTEMA OPERATIVO:
+- Windows (con XAMPP, WAMP, o Laragon)
+- Linux (Ubuntu, CentOS, etc.)
+- macOS (con MAMP)
+
+NAVEGADOR:
+- Chrome, Firefox, Safari, Edge (versiones recientes)
+
+===============================================================================
+                    2. INSTALACIÓN DEL SERVIDOR WEB
+===============================================================================
+
+OPCIÓN A - WINDOWS (RECOMENDADO):
+1. Descargar Laragon desde: https://laragon.org/download/
+2. Instalar Laragon con todas las opciones por defecto
+3. Iniciar Laragon y verificar que Apache y MySQL estén funcionando
+
+OPCIÓN B - XAMPP:
+1. Descargar XAMPP desde: https://www.apachefriends.org/
+2. Instalar XAMPP
+3. Iniciar Apache y MySQL desde el panel de control
+
+OPCIÓN C - WAMP:
+1. Descargar WAMP desde: https://www.wampserver.com/
+2. Instalar WAMP
+3. Iniciar los servicios desde la bandeja del sistema
+
+===============================================================================
+                   3. CONFIGURACIÓN DE LA BASE DE DATOS
+===============================================================================
+
+PASO 1 - ACCEDER A PHPMYADMIN:
+1. Abrir el navegador
+2. Ir a: http://localhost/phpmyadmin
+3. Iniciar sesión con usuario root (sin contraseña por defecto)
+
+PASO 2 - CREAR LA BASE DE DATOS:
+1. En phpMyAdmin, hacer clic en "Nueva"
+2. Nombre de la base de datos: akademia360new
+3. Cotejamiento: utf8mb4_unicode_ci
+4. Hacer clic en "Crear"
+
+PASO 3 - IMPORTAR LA ESTRUCTURA:
+1. Seleccionar la base de datos akademia360new
+2. Ir a la pestaña "Importar"
+3. Seleccionar el archivo SQL (si existe)
+4. Hacer clic en "Continuar"
+
+ALTERNATIVA - CREACIÓN AUTOMÁTICA:
+El sistema puede crear automáticamente la base de datos si:
+1. El usuario MySQL tiene permisos de creación
+2. Se accede al sistema por primera vez
+
+===============================================================================
+                       4. INSTALACIÓN DEL SISTEMA
+===============================================================================
+
+PASO 1 - DESCARGAR EL SISTEMA:
+1. Descargar todos los archivos del sistema
+2. Extraer en la carpeta del servidor web:
+   - Laragon: C:\laragon\www\aka360\
+   - XAMPP: C:\xampp\htdocs\aka360\
+   - WAMP: C:\wamp64\www\aka360\
+
+PASO 2 - VERIFICAR ESTRUCTURA DE CARPETAS:
+El sistema debe tener la siguiente estructura:
+```
+aka360/
+├── admin/           (Panel de administración)
+├── config/          (Configuración de base de datos)
+├── css/             (Estilos CSS)
+├── img/             (Imágenes del sitio)
+├── includes/        (Funciones PHP)
+├── js/              (JavaScript)
+├── pages/           (Páginas del sitio)
+├── index.php        (Página principal)
+└── README.md        (Documentación)
+```
+
+PASO 3 - CONFIGURAR PERMISOS (LINUX/MAC):
+```bash
+chmod 755 -R /ruta/al/sistema
+chmod 777 -R /ruta/al/sistema/img
+```
+
+PASO 4 - VERIFICAR INSTALACIÓN:
+1. Abrir el navegador
+2. Ir a: http://localhost/aka360/
+3. Verificar que la página principal se cargue correctamente
+
+===============================================================================
+                       5. CONFIGURACIÓN INICIAL
+===============================================================================
+
+PASO 1 - ACCEDER AL PANEL DE ADMINISTRACIÓN:
+1. Abrir el navegador
+2. Ir a: http://localhost/aka360/admin/
+3. Verificar que el panel se cargue correctamente
+
+PASO 2 - CONFIGURAR DATOS INICIALES:
+1. Ir a "Cursos" y agregar algunos cursos de ejemplo
+2. Ir a "Noticias" y agregar noticias de prueba
+3. Ir a "Relatores" y agregar información de relatores
+4. Ir a "Servicios" y configurar los servicios disponibles
+
+PASO 3 - CONFIGURAR EL CARRUSEL:
+1. Ir a "Carrusel" en el panel de administración
+2. Agregar contenido destacado
+3. Configurar fechas de inicio y fin
+4. Seleccionar imágenes y textos
+
+PASO 4 - VERIFICAR FUNCIONALIDAD:
+1. Navegar por todas las páginas del sitio
+2. Verificar que los enlaces funcionen
+3. Probar el formulario de contacto
+4. Verificar que las imágenes se muestren correctamente
+
+===============================================================================
+                    6. ADMINISTRACIÓN DEL SISTEMA
+===============================================================================
+
+PANEL DE ADMINISTRACIÓN:
+URL: http://localhost/aka360/admin/
+
+FUNCIONES DISPONIBLES:
+
+1. DASHBOARD:
+   - Vista general del sistema
+   - Estadísticas básicas
+   - Acceso rápido a funciones
+
+2. CURSOS:
+   - Agregar nuevos cursos
+   - Editar cursos existentes
+   - Eliminar cursos
+   - Configurar fechas y precios
+   - Gestionar carrusel para cursos
+
+3. NOTICIAS:
+   - Crear nuevas noticias
+   - Editar noticias existentes
+   - Eliminar noticias
+   - Gestionar carrusel para noticias
+
+4. RELATORES:
+   - Agregar información de relatores
+   - Editar perfiles
+   - Eliminar relatores
+   - Gestionar imágenes y biografías
+
+5. SERVICIOS:
+   - Configurar servicios disponibles
+   - Editar descripciones
+   - Gestionar imágenes de servicios
+
+6. CARRUSEL:
+   - Gestionar contenido destacado
+   - Configurar fechas de visualización
+   - Seleccionar contenido para mostrar
+
+7. CONTACTOS:
+   - Ver mensajes de contacto
+   - Gestionar consultas de usuarios
+
+CONFIGURACIÓN AVANZADA:
+
+1. BASE DE DATOS:
+   - Archivo: config/database.php
+   - Configurar conexión a MySQL
+   - Cambiar nombre de base de datos si es necesario
+
+2. FUNCIONES DEL SISTEMA:
+   - Archivo: includes/functions.php
+   - Funciones de conexión y consultas
+   - Mapeo de datos
+
+3. ESTILOS:
+   - Archivo: css/style.css
+   - Personalización de colores y diseño
+   - Responsive design
+
+===============================================================================
+                           7. MANTENIMIENTO
+===============================================================================
+
+RESPALDOS REGULARES:
+
+1. BASE DE DATOS:
+   - Realizar respaldo completo de akademia360new
+   - Frecuencia: Semanal
+   - Ubicación: Carpeta de respaldos segura
+
+2. ARCHIVOS DEL SISTEMA:
+   - Respaldar toda la carpeta del proyecto
+   - Frecuencia: Mensual
+   - Incluir imágenes y documentos
+
+3. LOGS:
+   - Revisar logs de errores de PHP
+   - Revisar logs de Apache/MySQL
+   - Mantener registro de cambios
+
+MANTENIMIENTO PREVENTIVO:
+
+1. SEMANAL:
+   - Verificar funcionamiento del sitio
+   - Revisar mensajes de contacto
+   - Actualizar contenido si es necesario
+
+2. MENSUAL:
+   - Respaldar base de datos
+   - Limpiar logs antiguos
+   - Verificar espacio en disco
+
+3. TRIMESTRAL:
+   - Actualizar sistema si hay nuevas versiones
+   - Revisar seguridad
+   - Optimizar base de datos
+
+===============================================================================
+                      8. SOLUCIÓN DE PROBLEMAS
+===============================================================================
+
+PROBLEMAS COMUNES:
+
+1. ERROR DE CONEXIÓN A BASE DE DATOS:
+   - Verificar que MySQL esté ejecutándose
+   - Revisar credenciales en config/database.php
+   - Verificar que la base de datos existe
+
+2. PÁGINA NO ENCUENTRA:
+   - Verificar que Apache esté ejecutándose
+   - Revisar ruta de archivos
+   - Verificar permisos de carpetas
+
+3. IMÁGENES NO SE MUESTRAN:
+   - Verificar ruta de imágenes
+   - Revisar permisos de carpeta img/
+   - Verificar que las URLs sean correctas
+
+4. ERRORES DE PHP:
+   - Revisar logs de errores
+   - Verificar versión de PHP
+   - Comprobar extensiones habilitadas
+
+5. CARRUSEL NO FUNCIONA:
+   - Verificar contenido en tabla contenido_destacado
+   - Revisar fechas de inicio y fin
+   - Verificar que las imágenes existan
+
+COMANDOS ÚTILES:
+
+1. VERIFICAR SERVICIOS (WINDOWS):
+   - Abrir Administrador de tareas
+   - Verificar que Apache y MySQL estén ejecutándose
+
+2. VERIFICAR LOGS:
+   - Apache: logs/error.log
+   - PHP: php_error.log
+   - MySQL: data/mysql_error.log
+
+3. REINICIAR SERVICIOS:
+   - Laragon: Botón "Stop All" y luego "Start All"
+   - XAMPP: Panel de control
+   - WAMP: Icono en bandeja del sistema
+
+CONTACTO PARA SOPORTE:
+- Email: soporte@akademia360.cl
+- Documentación técnica disponible en el repositorio
+- Logs de errores para diagnóstico
+
+===============================================================================
+                                FINAL
+===============================================================================
+
+Este manual debe mantenerse actualizado con cada nueva versión del sistema.
+Para consultas adicionales, revisar la documentación técnica completa.
+
+Fecha de última actualización: [FECHA]
+Versión del sistema: 1.0 
