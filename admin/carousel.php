@@ -3,6 +3,7 @@ session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 require_once '../includes/auth_functions.php';
+require_once '../includes/upload_functions.php';
 
 // Requerir autenticación y permisos
 requireAuth();
@@ -11,10 +12,13 @@ requirePermission('carousel_view');
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_featured'])) {
+        // Procesar imagen (URL o archivo subido)
+        $image_url = processImageField($_POST, $_FILES, 'image');
+        
         $data = [
             'title' => $_POST['title'],
             'description' => $_POST['description'],
-            'image' => $_POST['image'],
+            'image' => $image_url,
             'type' => $_POST['type'],
             'content_id' => $_POST['content_id'],
             'start_date' => $_POST['start_date'] ?: null,
@@ -30,10 +34,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (isset($_POST['update_featured'])) {
         $id = $_POST['id'];
+        
+        // Obtener imagen anterior para comparar
+        $old_image = '';
+        if (isset($_POST['old_image'])) {
+            $old_image = $_POST['old_image'];
+        }
+        
+        // Procesar imagen (URL o archivo subido)
+        $image_url = processImageField($_POST, $_FILES, 'image', $old_image);
+        
         $data = [
             'title' => $_POST['title'],
             'description' => $_POST['description'],
-            'image' => $_POST['image'],
+            'image' => $image_url,
             'type' => $_POST['type'],
             'content_id' => $_POST['content_id'],
             'start_date' => $_POST['start_date'] ?: null,
@@ -244,7 +258,7 @@ $featured_content = getAllFeaturedContent();
                         <h5 class="mb-0"><i class="fas fa-plus"></i> Agregar Contenido Destacado</h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" id="featuredForm">
+                        <form method="POST" id="featuredForm" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Título</label>
                                 <input type="text" class="form-control" id="title" name="title" required>
@@ -256,8 +270,22 @@ $featured_content = getAllFeaturedContent();
                             </div>
                             
                             <div class="mb-3">
-                                <label for="image" class="form-label">URL de la imagen</label>
-                                <input type="url" class="form-control" id="image" name="image" required>
+                                <label for="image" class="form-label">Imagen</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Subir imagen desde tu computadora</label>
+                                        <input type="file" class="form-control" id="image_file" name="image" accept="image/*">
+                                        <small class="text-muted">Formatos: JPG, PNG, GIF, WebP. Máximo 5MB.</small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">O usar URL de imagen</label>
+                                        <input type="url" class="form-control" id="image_url" name="image_url" placeholder="https://ejemplo.com/imagen.jpg">
+                                        <small class="text-muted">Si subes un archivo, la URL se ignorará.</small>
+                                    </div>
+                                </div>
+                                <div id="image-preview" class="mt-2 border rounded p-2 text-center" style="display: none;">
+                                    <img id="preview-img" src="" alt="Vista previa" class="img-fluid" style="max-height: 150px;">
+                                </div>
                             </div>
                             
                             <div class="mb-3">
@@ -310,7 +338,7 @@ $featured_content = getAllFeaturedContent();
                     <h5 class="modal-title">Editar Contenido Destacado</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="id" id="edit_id">
                         
@@ -324,9 +352,25 @@ $featured_content = getAllFeaturedContent();
                             <textarea class="form-control" id="edit_description" name="description" rows="3" required></textarea>
                         </div>
                         
+                        <input type="hidden" name="old_image" id="edit_old_image">
+                        
                         <div class="mb-3">
-                            <label for="edit_image" class="form-label">URL de la imagen</label>
-                            <input type="url" class="form-control" id="edit_image" name="image" required>
+                            <label for="edit_image" class="form-label">Imagen</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Subir nueva imagen</label>
+                                    <input type="file" class="form-control" id="edit_image_file" name="image" accept="image/*">
+                                    <small class="text-muted">Formatos: JPG, PNG, GIF, WebP. Máximo 5MB.</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">O usar URL de imagen</label>
+                                    <input type="url" class="form-control" id="edit_image_url" name="image_url" placeholder="https://ejemplo.com/imagen.jpg">
+                                    <small class="text-muted">Si subes un archivo, la URL se ignorará.</small>
+                                </div>
+                            </div>
+                            <div id="edit-image-preview" class="mt-2 border rounded p-2 text-center">
+                                <img id="edit-preview-img" src="" alt="Vista previa" class="img-fluid" style="max-height: 150px;">
+                            </div>
                         </div>
                         
                         <div class="mb-3">
@@ -475,6 +519,102 @@ $featured_content = getAllFeaturedContent();
             const type = this.value;
             loadContentForEdit(type, null);
         });
+
+        // Image preview functionality for add form
+        document.getElementById('image_file').addEventListener('change', function() {
+            const file = this.files[0];
+            const preview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        document.getElementById('image_url').addEventListener('input', function() {
+            const url = this.value.trim();
+            const preview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            
+            if (url) {
+                previewImg.src = url;
+                preview.style.display = 'block';
+                previewImg.onerror = function() {
+                    preview.innerHTML = '<div class="text-danger"><i class="fas fa-exclamation-triangle"></i><br><small>Error al cargar imagen</small></div>';
+                };
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        // Image preview functionality for edit form
+        document.getElementById('edit_image_file').addEventListener('change', function() {
+            const file = this.files[0];
+            const preview = document.getElementById('edit-image-preview');
+            const previewImg = document.getElementById('edit-preview-img');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        document.getElementById('edit_image_url').addEventListener('input', function() {
+            const url = this.value.trim();
+            const preview = document.getElementById('edit-image-preview');
+            const previewImg = document.getElementById('edit-preview-img');
+            
+            if (url) {
+                previewImg.src = url;
+                preview.style.display = 'block';
+                previewImg.onerror = function() {
+                    preview.innerHTML = '<div class="text-danger"><i class="fas fa-exclamation-triangle"></i><br><small>Error al cargar imagen</small></div>';
+                };
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        // Update editItem function to handle image preview
+        function editItem(item) {
+            document.getElementById('edit_id').value = item.id;
+            document.getElementById('edit_title').value = item.titulo;
+            document.getElementById('edit_description').value = item.descripcion;
+            document.getElementById('edit_image_url').value = item.imagen;
+            document.getElementById('edit_old_image').value = item.imagen;
+            document.getElementById('edit_type').value = item.tipo;
+            document.getElementById('edit_start_date').value = item.fecha_inicio || '';
+            document.getElementById('edit_end_date').value = item.fecha_fin || '';
+            document.getElementById('edit_is_active').checked = item.activo == 1;
+            
+            // Show current image preview
+            const preview = document.getElementById('edit-image-preview');
+            const previewImg = document.getElementById('edit-preview-img');
+            if (item.imagen) {
+                previewImg.src = item.imagen;
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+            
+            // Load content for this type
+            loadContentForEdit(item.tipo, item.id_contenido);
+            
+            new bootstrap.Modal(document.getElementById('editModal')).show();
+        }
     </script>
 </body>
 </html> 

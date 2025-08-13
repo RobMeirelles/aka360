@@ -3,6 +3,7 @@ session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 require_once '../includes/auth_functions.php';
+require_once '../includes/upload_functions.php';
 
 // Requerir autenticación y permisos
 requireAuth();
@@ -23,7 +24,9 @@ if ($_POST) {
                 $especializacion = $mysqli->real_escape_string($_POST['especializacion']);
                 $universidad = $mysqli->real_escape_string($_POST['universidad']);
                 $email = $mysqli->real_escape_string($_POST['email']);
-                $imagen = $mysqli->real_escape_string($_POST['imagen']);
+                
+                // Procesar imagen (URL o archivo subido)
+                $imagen = processImageField($_POST, $_FILES, 'imagen');
                 
                 $sql = "INSERT INTO relatores (nombre, titulo, biografia, especializacion, universidad, email, imagen, activo) 
                         VALUES ('$nombre', '$titulo', '$biografia', '$especializacion', '$universidad', '$email', '$imagen', 1)";
@@ -44,7 +47,16 @@ if ($_POST) {
                 $especializacion = $mysqli->real_escape_string($_POST['especializacion']);
                 $universidad = $mysqli->real_escape_string($_POST['universidad']);
                 $email = $mysqli->real_escape_string($_POST['email']);
-                $imagen = $mysqli->real_escape_string($_POST['imagen']);
+                
+                // Obtener imagen anterior para comparar
+                $old_image = '';
+                if (isset($_POST['old_image'])) {
+                    $old_image = $_POST['old_image'];
+                }
+                
+                // Procesar imagen (URL o archivo subido)
+                $imagen = processImageField($_POST, $_FILES, 'imagen', $old_image);
+                
                 $activo = $mysqli->real_escape_string($_POST['activo']);
                 
                 $sql = "UPDATE relatores SET nombre = '$nombre', titulo = '$titulo', biografia = '$biografia', 
@@ -264,7 +276,7 @@ if ($action === 'list') {
                         <!-- Add/Edit Form -->
                         <div class="card">
                             <div class="card-body">
-                                <form method="POST">
+                                <form method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="action" value="<?php echo $action; ?>">
                                     <?php if ($relator): ?>
                                         <input type="hidden" name="id" value="<?php echo $relator['id']; ?>">
@@ -311,10 +323,22 @@ if ($action === 'list') {
                                         
                                         <div class="col-md-4">
                                             <div class="mb-3">
-                                                <label for="imagen" class="form-label">URL de la Foto</label>
-                                                <input type="url" class="form-control" id="imagen" name="imagen" 
-                                                       value="<?php echo htmlspecialchars($relator['imagen'] ?? ''); ?>"
-                                                       placeholder="https://ejemplo.com/foto.jpg">
+                                                <label for="imagen" class="form-label">Foto</label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Subir foto desde tu computadora</label>
+                                                        <input type="file" class="form-control" id="imagen_file" name="imagen" accept="image/*">
+                                                        <small class="text-muted">Formatos: JPG, PNG, GIF, WebP. Máximo 5MB.</small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">O usar URL de foto</label>
+                                                        <input type="url" class="form-control" id="imagen_url" name="imagen_url" 
+                                                               value="<?php echo htmlspecialchars($relator['imagen'] ?? ''); ?>"
+                                                               placeholder="https://ejemplo.com/foto.jpg">
+                                                        <small class="text-muted">Si subes un archivo, la URL se ignorará.</small>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="old_image" value="<?php echo htmlspecialchars($relator['imagen'] ?? ''); ?>">
                                             </div>
                                             
                                             <div class="mb-3">
@@ -379,10 +403,26 @@ if ($action === 'list') {
             }
         }
         
-        // Image preview functionality
-        document.getElementById('imagen')?.addEventListener('input', function() {
+        // Image preview functionality for file upload
+        document.getElementById('imagen_file')?.addEventListener('change', function() {
+            const file = this.files[0];
             const preview = document.getElementById('image-preview');
-            const url = this.value;
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Vista previa" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '<div class="text-muted"><i class="fas fa-user fa-3x"></i><br><small>Sin foto</small></div>';
+            }
+        });
+
+        // Image preview functionality for URL
+        document.getElementById('imagen_url')?.addEventListener('input', function() {
+            const preview = document.getElementById('image-preview');
+            const url = this.value.trim();
             
             if (url) {
                 preview.innerHTML = `<img src="${url}" alt="Vista previa" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" onerror="this.parentElement.innerHTML='<div class=\'text-danger\'><i class=\'fas fa-exclamation-triangle\'></i><br><small>Error al cargar imagen</small></div>'">`;
