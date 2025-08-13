@@ -533,23 +533,26 @@ html {
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
+    background: var(--rojo);
     border: none;
+    color: var(--white);
 }
 
 .btn-primary:hover {
-    background: var(--gradient-secondary);
+    background: var(--gris-profundo);
+    color: var(--white);
     transform: translateY(-2px);
 }
 
 .btn-outline-primary {
-    background: var(--primary-color);
+    background: var(--rojo);
     border: none;
+    color: var(--white);
 }
 
 .btn-outline-primary:hover {
     background: var(--gris-profundo);
-    color: white;
+    color: var(--white);
     transform: translateY(-2px);
 }
 

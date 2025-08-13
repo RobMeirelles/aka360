@@ -314,3 +314,5 @@ Para consultas adicionales, revisar la documentación técnica completa.
 
 Fecha de última actualización: [FECHA]
 Versión del sistema: 1.0 
+Usuario: superadmin
+Contraseña: admin123

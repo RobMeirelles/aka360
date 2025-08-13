@@ -2,12 +2,11 @@
 session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
+require_once '../includes/auth_functions.php';
 
-// Simple authentication
-if (!isset($_SESSION['admin_logged_in'])) {
-    header('Location: index.php');
-    exit;
-}
+// Requerir autenticación y permisos
+requireAuth();
+requirePermission('cursos_view');
 
 $mysqli = getDBConnection();
 $action = $_GET['action'] ?? 'list';

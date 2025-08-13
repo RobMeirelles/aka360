@@ -38,8 +38,17 @@ $mes_actual = $meses_es[$month] . ' ' . $year;
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <style>
+        :root {
+            --negro: #000000;
+            --turquesa: #03cbc5;
+            --gris-oscuro: #414545;
+            --rojo: #f8415b;
+            --gris-profundo: #192121;
+            --white: #ffffff;
+        }
+        
         .calendar-header {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, var(--turquesa), var(--rojo));
             color: white;
             padding: 3rem 0;
             margin-bottom: 3rem;
@@ -52,7 +61,7 @@ $mes_actual = $meses_es[$month] . ' ' . $year;
         .month-title {
             background: #f8f9fa;
             padding: 1rem;
-            border-left: 4px solid #28a745;
+            border-left: 4px solid var(--turquesa);
             margin-bottom: 2rem;
             border-radius: 0 8px 8px 0;
         }
@@ -73,7 +82,7 @@ $mes_actual = $meses_es[$month] . ' ' . $year;
         
         .course-image {
             height: 200px;
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: linear-gradient(45deg, var(--turquesa), var(--rojo));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -132,23 +141,27 @@ $mes_actual = $meses_es[$month] . ' ' . $year;
         }
         
         .btn-primary {
-            background: #28a745;
-            border-color: #28a745;
+            background: var(--rojo);
+            border-color: var(--rojo);
+            color: var(--white);
         }
         
         .btn-primary:hover {
-            background: #218838;
-            border-color: #1e7e34;
+            background: var(--gris-profundo);
+            border-color: var(--gris-profundo);
+            color: var(--white);
         }
         
         .btn-outline-primary {
-            color:rgb(255, 255, 255);
-            border-color: #28a745;
+            color: var(--white);
+            border-color: var(--rojo);
+            background: var(--rojo);
         }
         
         .btn-outline-primary:hover {
-            background: #28a745;
-            border-color: #28a745;
+            background: var(--gris-profundo);
+            border-color: var(--gris-profundo);
+            color: var(--white);
         }
         
         .no-courses {

@@ -2,11 +2,10 @@
 session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
+require_once '../includes/auth_functions.php';
 
-// Simple authentication (you can enhance this later)
-if (!isset($_SESSION['admin_logged_in'])) {
-    $_SESSION['admin_logged_in'] = true; // For demo purposes
-}
+// Requerir autenticación
+requireAuth();
 
 // Get statistics
 $mysqli = getDBConnection();
@@ -99,30 +98,7 @@ $stats['featured'] = $result->fetch_assoc()['total'];
                     </div>
                     
                     <nav class="nav flex-column">
-                        <a class="nav-link active" href="index.php">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a>
-                        <a class="nav-link" href="cursos.php">
-                            <i class="fas fa-graduation-cap"></i> Cursos
-                        </a>
-                        <a class="nav-link" href="noticias.php">
-                            <i class="fas fa-newspaper"></i> Noticias
-                        </a>
-                        <a class="nav-link" href="relatores.php">
-                            <i class="fas fa-user-tie"></i> Relatores
-                        </a>
-                        <a class="nav-link" href="servicios.php">
-                            <i class="fas fa-briefcase"></i> Servicios
-                        </a>
-                        <a class="nav-link" href="carousel.php">
-                            <i class="fas fa-images"></i> Carrusel
-                        </a>
-                        <a class="nav-link" href="contactos.php">
-                            <i class="fas fa-envelope"></i> Contactos
-                        </a>
-                        <a class="nav-link" href="logout.php">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </a>
+                        <?php echo getNavigationMenu(); ?>
                     </nav>
                 </div>
             </div>
@@ -136,8 +112,18 @@ $stats['featured'] = $result->fetch_assoc()['total'];
                             <h2 class="mb-0">
                                 <i class="fas fa-tachometer-alt text-primary"></i> Dashboard
                             </h2>
-                            <div class="text-muted">
-                                <i class="fas fa-calendar"></i> <?php echo date('d/m/Y H:i'); ?>
+                            <div class="d-flex align-items-center">
+                                <div class="text-muted me-3">
+                                    <i class="fas fa-calendar"></i> <?php echo date('d/m/Y H:i'); ?>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-user"></i> 
+                                    <?php 
+                                    $currentUser = getCurrentUser();
+                                    echo htmlspecialchars($currentUser['nombre_completo']); 
+                                    ?>
+                                    <small class="badge bg-primary ms-1"><?php echo ucfirst($currentUser['rol']); ?></small>
+                                </div>
                             </div>
                         </div>
                     </div>
