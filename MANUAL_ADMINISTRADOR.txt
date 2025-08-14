@@ -79,13 +79,21 @@ PASO 2 - CREAR LA BASE DE DATOS:
 PASO 3 - IMPORTAR LA ESTRUCTURA:
 1. Seleccionar la base de datos akademia360new
 2. Ir a la pestaña "Importar"
-3. Seleccionar el archivo SQL (si existe)
+3. Seleccionar el archivo: akademia360_database.sql
 4. Hacer clic en "Continuar"
 
 ALTERNATIVA - CREACIÓN AUTOMÁTICA:
 El sistema puede crear automáticamente la base de datos si:
 1. El usuario MySQL tiene permisos de creación
 2. Se accede al sistema por primera vez
+
+NOTA: El archivo akademia360_database.sql contiene toda la estructura
+completa del sistema, incluyendo:
+- Tablas principales (cursos, noticias, relatores, servicios)
+- Sistema de autenticación y permisos
+- Sistema de analytics y tracking
+- Datos de muestra
+- Índices y optimizaciones
 
 ===============================================================================
                        4. INSTALACIÓN DEL SISTEMA
@@ -110,6 +118,7 @@ aka360/
 ├── js/              (JavaScript)
 ├── pages/           (Páginas del sitio)
 ├── index.php        (Página principal)
+├── akademia360_database.sql (Base de datos unificada)
 └── README.md        (Documentación)
 ```
 
@@ -215,6 +224,17 @@ CONFIGURACIÓN AVANZADA:
    - Personalización de colores y diseño
    - Responsive design
 
+SISTEMA DE AUTENTICACIÓN:
+- Usuario por defecto: superadmin
+- Contraseña por defecto: admin123
+- Se recomienda cambiar la contraseña después de la instalación
+
+SISTEMA DE ANALYTICS:
+- Tracking automático de visitas
+- Métricas de contenido
+- Reportes de formularios
+- Configuración desde el panel de administración
+
 ===============================================================================
                            7. MANTENIMIENTO
 ===============================================================================
@@ -225,6 +245,7 @@ RESPALDOS REGULARES:
    - Realizar respaldo completo de akademia360new
    - Frecuencia: Semanal
    - Ubicación: Carpeta de respaldos segura
+   - Comando: mysqldump -u root -p akademia360new > backup_$(date +%Y%m%d).sql
 
 2. ARCHIVOS DEL SISTEMA:
    - Respaldar toda la carpeta del proyecto
@@ -242,16 +263,25 @@ MANTENIMIENTO PREVENTIVO:
    - Verificar funcionamiento del sitio
    - Revisar mensajes de contacto
    - Actualizar contenido si es necesario
+   - Revisar métricas de analytics
 
 2. MENSUAL:
    - Respaldar base de datos
    - Limpiar logs antiguos
    - Verificar espacio en disco
+   - Revisar rendimiento del sistema
 
 3. TRIMESTRAL:
    - Actualizar sistema si hay nuevas versiones
    - Revisar seguridad
    - Optimizar base de datos
+   - Actualizar documentación
+
+LIMPIEZA AUTOMÁTICA:
+El sistema incluye eventos automáticos para:
+- Limpiar sesiones expiradas (cada hora)
+- Mantener rendimiento óptimo
+- Conservar espacio en base de datos
 
 ===============================================================================
                       8. SOLUCIÓN DE PROBLEMAS
@@ -263,6 +293,7 @@ PROBLEMAS COMUNES:
    - Verificar que MySQL esté ejecutándose
    - Revisar credenciales en config/database.php
    - Verificar que la base de datos existe
+   - Comprobar que el archivo akademia360_database.sql se importó correctamente
 
 2. PÁGINA NO ENCUENTRA:
    - Verificar que Apache esté ejecutándose
@@ -284,6 +315,11 @@ PROBLEMAS COMUNES:
    - Revisar fechas de inicio y fin
    - Verificar que las imágenes existan
 
+6. PROBLEMAS CON ANALYTICS:
+   - Verificar que las tablas de analytics existan
+   - Comprobar configuración en analytics_config
+   - Revisar permisos de escritura
+
 COMANDOS ÚTILES:
 
 1. VERIFICAR SERVICIOS (WINDOWS):
@@ -300,6 +336,16 @@ COMANDOS ÚTILES:
    - XAMPP: Panel de control
    - WAMP: Icono en bandeja del sistema
 
+4. RESPALDO RÁPIDO:
+   ```bash
+   mysqldump -u root -p akademia360new > backup_$(date +%Y%m%d_%H%M%S).sql
+   ```
+
+5. RESTAURAR BASE DE DATOS:
+   ```bash
+   mysql -u root -p akademia360new < backup_archivo.sql
+   ```
+
 CONTACTO PARA SOPORTE:
 - Email: soporte@akademia360.cl
 - Documentación técnica disponible en el repositorio
@@ -312,7 +358,13 @@ CONTACTO PARA SOPORTE:
 Este manual debe mantenerse actualizado con cada nueva versión del sistema.
 Para consultas adicionales, revisar la documentación técnica completa.
 
-Fecha de última actualización: [FECHA]
-Versión del sistema: 1.0 
+IMPORTANTE:
+- El archivo akademia360_database.sql contiene toda la estructura del sistema
+- Se recomienda hacer respaldos regulares
+- Mantener el sistema actualizado
+- Documentar cambios importantes
+
+Fecha de última actualización: Diciembre 2024
+Versión del sistema: 2.0
 Usuario: superadmin
 Contraseña: admin123

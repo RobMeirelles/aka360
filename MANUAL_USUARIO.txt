@@ -330,6 +330,7 @@ COMANDOS ÚTILES:
    - Imágenes: aka360/img/
    - Configuración: aka360/config/
    - Panel admin: aka360/admin/
+   - Base de datos: akademia360_database.sql
 
 CONTACTO PARA AYUDA:
 
@@ -351,5 +352,5 @@ Recuerda:
 - Probar cambios antes de publicarlos
 - Documentar modificaciones importantes
 
-Fecha de última actualización: [FECHA]
-Versión del sistema: 1.0 
+Fecha de última actualización: Diciembre 2024
+Versión del sistema: 2.0 
