@@ -678,7 +678,7 @@ html {
     }
 }
 
-/* Course Details Page Styles */
+/* Course Details Page - Comprehensive styling for individual course pages */
 .course-details {
     background-color: var(--light-color);
 }
@@ -850,7 +850,7 @@ html {
     color: var(--dark-color);
 }
 
-/* Responsive adjustments for course details */
+/* Responsive design adjustments for course details page */
 @media (max-width: 768px) {
     .course-sidebar {
         position: static;

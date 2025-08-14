@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
         
         if (saveContactSubmission($data)) {
-            // Send email notification
+            // Send email notification to administrators
             $subject = 'Nueva consulta desde Akademia 360';
             $email_message = "
                 <h2>Nueva consulta recibida</h2>

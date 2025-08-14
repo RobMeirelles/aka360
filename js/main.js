@@ -1,4 +1,7 @@
-// Main JavaScript for Akademia 360
+/**
+ * Main JavaScript for Akademia 360
+ * Handles all frontend interactions and functionality
+ */
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -103,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize animations on page load
     animateOnScroll();
     
-    // Contact form validation
+    // Contact form validation and submission
     const contactForm = document.querySelector('#contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -132,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Notification system
+    // Notification system for user feedback
     function showNotification(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
@@ -190,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Social media sharing
+    // Social media sharing functionality
     function shareContent(platform, url, title) {
         let shareUrl = '';
         
@@ -226,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Lazy loading for images
+    // Lazy loading for images to improve performance
     function lazyLoadImages() {
         const images = document.querySelectorAll('img[data-src]');
         
@@ -247,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize lazy loading
     lazyLoadImages();
     
-    // Back to top button
+    // Back to top button functionality
     const backToTopBtn = document.createElement('button');
     backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
     backToTopBtn.className = 'btn btn-primary position-fixed';
@@ -270,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Mobile menu toggle
+    // Mobile menu toggle functionality
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('.navbar-collapse');
     
@@ -288,13 +291,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize tooltips
+    // Initialize Bootstrap tooltips
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
     
-    // Initialize popovers
+    // Initialize Bootstrap popovers
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl);

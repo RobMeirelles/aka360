@@ -1,21 +1,21 @@
 <?php
 require_once '../includes/functions.php';
 
-// Obtener año y mes actuales
+// Get current year and month
 $current_year = date('Y');
 $current_month = date('n');
 
-// Obtener año y mes de la URL si se especifican
+// Get year and month from URL parameters if specified
 $year = isset($_GET['year']) ? (int)$_GET['year'] : $current_year;
 $month = isset($_GET['month']) ? (int)$_GET['month'] : $current_month;
 
-// Obtener cursos con fechas para el mes específico
+// Get courses with specific dates for the selected month
 $cursos_con_fechas = getCoursesByMonth($year, $month);
 
-// Obtener cursos cotizables
+// Get quotable courses (without specific dates)
 $cursos_cotizables = getQuotableCourses();
 
-// Obtener todos los cursos para mostrar en la lista general
+// Get all courses for general display
 $todos_los_cursos = getAllCoursesByDate();
 
 // Traducción de meses

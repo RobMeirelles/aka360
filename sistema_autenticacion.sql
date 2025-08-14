@@ -112,7 +112,12 @@ INSERT INTO `permisos` (`codigo`, `nombre`, `descripcion`, `modulo`) VALUES
 ('usuarios_create', 'Crear Usuarios', 'Crear nuevos usuarios del sistema', 'usuarios'),
 ('usuarios_edit', 'Editar Usuarios', 'Modificar usuarios del sistema', 'usuarios'),
 ('usuarios_delete', 'Eliminar Usuarios', 'Eliminar usuarios del sistema', 'usuarios'),
-('usuarios_permisos', 'Gestionar Permisos', 'Asignar y revocar permisos a usuarios', 'usuarios');
+('usuarios_permisos', 'Gestionar Permisos', 'Asignar y revocar permisos a usuarios', 'usuarios'),
+
+-- Analytics
+('analytics_view', 'Ver Analytics', 'Acceso al panel de analytics y estadísticas', 'analytics'),
+('analytics_export', 'Exportar Reportes', 'Exportar reportes de analytics en CSV', 'analytics'),
+('analytics_config', 'Configurar Analytics', 'Configurar parámetros del sistema de analytics', 'analytics');
 
 -- Crear usuario super admin por defecto
 -- Password: admin123 (hash bcrypt)

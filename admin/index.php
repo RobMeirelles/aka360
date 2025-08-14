@@ -4,32 +4,47 @@ require_once '../config/database.php';
 require_once '../includes/functions.php';
 require_once '../includes/auth_functions.php';
 
-// Requerir autenticación
+// Require authentication for admin access
 requireAuth();
 
-// Get statistics
+// Get system statistics for dashboard
 $mysqli = getDBConnection();
 $stats = [];
 
-// Count courses
+// Count active courses
 $result = $mysqli->query("SELECT COUNT(*) as total FROM cursos WHERE activo = 1");
 $stats['courses'] = $result->fetch_assoc()['total'];
 
-// Count news
+// Count total news articles
 $result = $mysqli->query("SELECT COUNT(*) as total FROM noticias");
 $stats['news'] = $result->fetch_assoc()['total'];
 
-// Count relators
+// Count active relators
 $result = $mysqli->query("SELECT COUNT(*) as total FROM relatores WHERE activo = 1");
 $stats['relators'] = $result->fetch_assoc()['total'];
 
-// Count services
+// Count active services
 $result = $mysqli->query("SELECT COUNT(*) as total FROM servicios WHERE activo = 1");
 $stats['services'] = $result->fetch_assoc()['total'];
 
-// Count featured content
+// Count active featured content
 $result = $mysqli->query("SELECT COUNT(*) as total FROM contenido_destacado WHERE activo = 1");
 $stats['featured'] = $result->fetch_assoc()['total'];
+
+// Get analytics statistics (if tables exist)
+try {
+    require_once '../includes/analytics_functions.php';
+    $analytics_stats = getAnalyticsStats(7); // Last 7 days
+    
+    $stats['visitas_hoy'] = $analytics_stats['visitas_totales'] ?? 0;
+    $stats['usuarios_unicos'] = $analytics_stats['usuarios_unicos'] ?? 0;
+    $stats['sesiones'] = $analytics_stats['sesiones'] ?? 0;
+} catch (Exception $e) {
+    // If analytics tables don't exist, use default values
+    $stats['visitas_hoy'] = 0;
+    $stats['usuarios_unicos'] = 0;
+    $stats['sesiones'] = 0;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -165,6 +180,20 @@ $stats['featured'] = $result->fetch_assoc()['total'];
                                 <small>Destacados</small>
                             </div>
                         </div>
+                        <div class="col-md-4 col-lg-2">
+                            <div class="stats-card text-center">
+                                <i class="fas fa-eye fa-2x mb-2"></i>
+                                <h3><?php echo number_format($stats['visitas_hoy']); ?></h3>
+                                <small>Visitas (7 días)</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-2">
+                            <div class="stats-card text-center">
+                                <i class="fas fa-users fa-2x mb-2"></i>
+                                <h3><?php echo number_format($stats['usuarios_unicos']); ?></h3>
+                                <small>Usuarios Únicos</small>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- Quick Actions -->
@@ -196,6 +225,11 @@ $stats['featured'] = $result->fetch_assoc()['total'];
                                         <div class="col-md-6 mb-3">
                                             <a href="carousel.php?action=add" class="btn btn-warning w-100">
                                                 <i class="fas fa-plus"></i> Agregar al Carrusel
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <a href="analytics.php" class="btn btn-info w-100">
+                                                <i class="fas fa-chart-line"></i> Ver Analytics
                                             </a>
                                         </div>
                                     </div>

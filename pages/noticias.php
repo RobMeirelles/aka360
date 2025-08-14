@@ -3,8 +3,8 @@ session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 
-// Obtener todas las noticias
-$news = getRecentNews(50); // Obtener hasta 50 noticias
+// Retrieve all news articles for display
+$news = getRecentNews(50); // Get up to 50 news articles
 ?>
 <!DOCTYPE html>
 <html lang="es">

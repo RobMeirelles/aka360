@@ -3,19 +3,19 @@ session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 
-// Obtener el ID de la noticia desde la URL
+// Get news ID from URL parameter
 $news_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-// Obtener los datos de la noticia
+// Retrieve news data from database
 $news = getNewsById($news_id);
 
-// Si no se encuentra la noticia, redirigir a la página de noticias
+// Redirect to news page if article not found
 if (!$news) {
     header('Location: noticias.php');
     exit;
 }
 
-// Obtener noticias relacionadas
+// Get related news articles for sidebar
 $related_news = getRecentNews(3);
 $related_news = array_filter($related_news, function($n) use ($news_id) {
     return $n['id'] != $news_id;

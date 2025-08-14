@@ -3,7 +3,7 @@ session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 
-// Obtener todos los relatores
+// Retrieve all active relators for display
 $relators = getAllRelators();
 ?>
 <!DOCTYPE html>

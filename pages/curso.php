@@ -3,19 +3,19 @@ session_start();
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 
-// Obtener el ID del curso desde la URL
+// Get course ID from URL parameter
 $course_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-// Obtener los datos del curso
+// Retrieve course data from database
 $course = getCourseById($course_id);
 
-// Si no se encuentra el curso, redirigir a la página principal
+// Redirect to home page if course not found
 if (!$course) {
     header('Location: ../index.php');
     exit;
 }
 
-// Obtener cursos relacionados (misma categoría)
+// Get related courses for sidebar
 $related_courses = getRecentCourses(3);
 $related_courses = array_filter($related_courses, function($c) use ($course_id) {
     return $c['id'] != $course_id;

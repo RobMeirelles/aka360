@@ -454,7 +454,7 @@ $featured_content = getAllFeaturedContent();
             const contentSelect = document.getElementById('content_id');
             
             if (type) {
-                // Simulate AJAX call to get available content
+                // Fetch available content via AJAX
                 fetch(`get_content.php?type=${type}`)
                     .then(response => response.json())
                     .then(data => {

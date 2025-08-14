@@ -1,12 +1,15 @@
 <?php
 require_once dirname(__DIR__) . '/config/database.php';
 
-// Obtener contenido destacado para el carrusel con filtrado por fecha
+/**
+ * Get featured content for carousel with date filtering
+ * Retrieves active content items for display in the main carousel
+ */
 function getFeaturedContent($limit = 5) {
     $mysqli = getDBConnection();
     $today = date('Y-m-d');
     
-    // Consulta simplificada que funciona incluso si no hay datos relacionados
+    // Simplified query that works even without related data
     $sql = "SELECT cd.*, 
             COALESCE(
                 CASE 
@@ -48,7 +51,7 @@ function getFeaturedContent($limit = 5) {
     $data = [];
     if ($result) {
         while ($row = $result->fetch_assoc()) {
-            // Mapear nombres de columnas españoles a ingleses para el frontend
+            // Map Spanish column names to English for frontend consistency
             $data[] = [
                 'id' => $row['id'],
                 'title' => $row['titulo_contenido'] ?: $row['titulo'],
@@ -70,7 +73,10 @@ function getFeaturedContent($limit = 5) {
     return $data;
 }
 
-// Obtener cursos recientes
+/**
+ * Get recent courses with relator information
+ * Retrieves the most recently created active courses
+ */
 function getRecentCourses($limit = 6) {
     $mysqli = getDBConnection();
     $sql = "SELECT c.*, r.nombre as nombre_relator, r.imagen as imagen_relator 
@@ -83,7 +89,7 @@ function getRecentCourses($limit = 6) {
     $data = [];
     if ($result) {
         while ($row = $result->fetch_assoc()) {
-            // Mapear nombres de columnas españoles a ingleses para el frontend
+            // Map Spanish column names to English for frontend consistency
             $data[] = [
                 'id' => $row['id'],
                 'title' => $row['titulo'],
@@ -107,7 +113,10 @@ function getRecentCourses($limit = 6) {
     return $data;
 }
 
-// Obtener todos los cursos ordenados por fecha
+/**
+ * Get all courses ordered by date
+ * Retrieves all active courses sorted by date priority
+ */
 function getAllCoursesByDate() {
     $mysqli = getDBConnection();
     $sql = "SELECT c.*, r.nombre as nombre_relator, r.imagen as imagen_relator 
@@ -147,7 +156,10 @@ function getAllCoursesByDate() {
     return $data;
 }
 
-// Obtener cursos por mes específico
+/**
+ * Get courses for specific month
+ * Retrieves courses scheduled for a particular month and year
+ */
 function getCoursesByMonth($year, $month) {
     $mysqli = getDBConnection();
     $start_date = sprintf('%04d-%02d-01', $year, $month);
@@ -196,7 +208,10 @@ function getCoursesByMonth($year, $month) {
     return $data;
 }
 
-// Obtener cursos cotizables (sin fechas específicas)
+/**
+ * Get quotable courses (without specific dates)
+ * Retrieves courses that can be quoted for custom scheduling
+ */
 function getQuotableCourses() {
     $mysqli = getDBConnection();
     $sql = "SELECT c.*, r.nombre as nombre_relator, r.imagen as imagen_relator 
@@ -237,7 +252,10 @@ function getQuotableCourses() {
     return $data;
 }
 
-// Obtener noticias recientes
+/**
+ * Get recent news articles
+ * Retrieves the most recent news articles for display
+ */
 function getRecentNews($limit = 3) {
     $mysqli = getDBConnection();
     $sql = "SELECT * FROM noticias ORDER BY fecha_creacion DESC LIMIT $limit";
@@ -261,7 +279,10 @@ function getRecentNews($limit = 3) {
     return $data;
 }
 
-// Obtener todos los servicios
+/**
+ * Get all active services
+ * Retrieves all active services for display
+ */
 function getAllServices() {
     $mysqli = getDBConnection();
     $sql = "SELECT * FROM servicios WHERE activo = 1 ORDER BY fecha_creacion ASC";
@@ -284,7 +305,10 @@ function getAllServices() {
     return $data;
 }
 
-// Obtener todos los relatores
+/**
+ * Get all active relators
+ * Retrieves all active relators for display
+ */
 function getAllRelators() {
     $mysqli = getDBConnection();
     $sql = "SELECT * FROM relatores WHERE activo = 1 ORDER BY nombre ASC";
@@ -310,7 +334,10 @@ function getAllRelators() {
     return $data;
 }
 
-// Obtener curso por ID
+/**
+ * Get course by ID
+ * Retrieves detailed course information by its ID
+ */
 function getCourseById($id) {
     $mysqli = getDBConnection();
     $id = $mysqli->real_escape_string($id);
@@ -391,7 +418,10 @@ function getServiceById($id) {
     return null;
 }
 
-// Guardar formulario de contacto
+/**
+ * Save contact form submission to database
+ * Stores user contact information and message
+ */
 function saveContactSubmission($data) {
     $mysqli = getDBConnection();
     $nombre = $mysqli->real_escape_string($data['name']);
@@ -405,7 +435,10 @@ function saveContactSubmission($data) {
     return $mysqli->query($sql);
 }
 
-// Send email notification
+/**
+ * Send email notification to administrators
+ * Sends formatted HTML email notifications
+ */
 function sendEmailNotification($to, $subject, $message) {
     $headers = "From: contacto@akademia360.cl\r\n";
     $headers .= "Reply-To: contacto@akademia360.cl\r\n";
@@ -414,7 +447,10 @@ function sendEmailNotification($to, $subject, $message) {
     return mail($to, $subject, $message, $headers);
 }
 
-// Funciones de administración para gestión del carrusel
+/**
+ * Add new featured content to carousel
+ * Creates new carousel item with specified content
+ */
 function addFeaturedContent($data) {
     $mysqli = getDBConnection();
     $titulo = $mysqli->real_escape_string($data['title']);
@@ -467,7 +503,10 @@ function getAllFeaturedContent() {
     return $data;
 }
 
-// Obtener contenido disponible para el carrusel
+/**
+ * Get available content for carousel selection
+ * Retrieves content items based on type for carousel management
+ */
 function getAvailableContent($type) {
     $mysqli = getDBConnection();
     

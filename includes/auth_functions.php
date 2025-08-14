@@ -379,6 +379,13 @@ function getNavigationMenu() {
                   </a>';
     }
     
+    // Analytics
+    if (hasPermission('analytics_view')) {
+        $html .= '<a class="nav-link" href="analytics.php">
+                    <i class="fas fa-chart-line"></i> Analytics
+                  </a>';
+    }
+    
     // Administración de Usuarios (solo super admin)
     if (isSuperAdmin() && hasModulePermission('usuarios')) {
         $html .= '<a class="nav-link" href="administracion_de_cuentas.php">
