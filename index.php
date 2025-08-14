@@ -133,7 +133,7 @@ $featured_content = getFeaturedContent();
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="about-image">
-                            <img src="img/about-illustration.jpg" alt="Akademia 360" class="img-fluid">
+                            <img src="img/Default-image.jpeg" alt="Akademia 360" class="img-fluid">
                         </div>
                     </div>
                     <div class="col-lg-6">
